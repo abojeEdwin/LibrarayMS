@@ -8,8 +8,6 @@ class User(AbstractUser):
     phone = models.CharField(max_length=11, unique=True)
 
 
-
-
 class Author(User):
     dob =models.DateField(blank=False,null=True)
     dod = models.DateField(blank=False,null=True)

@@ -12,4 +12,3 @@ class Author(User):
     dob =models.DateField(blank=False,null=True)
     dod = models.DateField(blank=False,null=True)
 
-

@@ -35,7 +35,7 @@ class Book(models.Model):
     isbn = models.CharField(max_length=11, unique = True)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    authors = models.ManyToManyField(New_Author,related_name="books")
+    author = models.ManyToManyField(New_Author,related_name="books")
 
     def __str__(self):
         return self.title

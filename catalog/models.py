@@ -1,10 +1,11 @@
 import uuid
 from django.conf import settings
 from django.db import models
-from user.models import User , Author as New_Author
+from user.models import Author
 
 
 # Create your models here.
+
 class Language(models.Model):
     LANGUAGE_CHOICES=(
     ("E", "ENGLISH"),
@@ -22,11 +23,10 @@ class Genre(models.Model):
    ("P", "POLITICS"),
    ("F", "FICTION"),
    )
-   name = models.CharField(max_length=1,choices=GENRE_CHOICES,default="Comedy")
-
-
+   name = models.CharField(max_length=1,choices=GENRE_CHOICES,default="C")
    def __str__(self):
        return self.name
+
 
 
 class Book(models.Model):
@@ -35,7 +35,7 @@ class Book(models.Model):
     isbn = models.CharField(max_length=11, unique = True)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    author = models.ManyToManyField(New_Author,related_name="books")
+    author = models.ManyToManyField(Author,related_name="books")
 
     def __str__(self):
         return self.title
@@ -52,5 +52,3 @@ class BookInstance(models.Model):
     return_date = models.DateTimeField(blank=False, null=False)
     comments = models.TextField(blank=True, null=True)
     user= models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
-
-

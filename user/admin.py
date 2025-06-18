@@ -10,7 +10,7 @@ from .models import Author,User
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    pass
+    list_per_page = 10
 
 
 

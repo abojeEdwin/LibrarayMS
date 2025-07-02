@@ -31,8 +31,11 @@ class Author(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=11, unique=True)
-    dob = models.DateField(null=True)
-    dod = models.DateField(null=True)
+    dob = models.DateField(blank=False,null=True)
+    dod = models.DateField(blank=True,null=True)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
 
 
 class Book(models.Model):

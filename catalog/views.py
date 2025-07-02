@@ -38,6 +38,12 @@ def update_author(request, pk):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+@api_view(['DELETE'])
+def delete_author(request, pk):
+    author = Author.objects.get(pk=pk)
+    author.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
 class BookListView(ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer

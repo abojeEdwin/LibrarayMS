@@ -9,7 +9,7 @@ urlpatterns = [
     path("get/authors/",views.get_authors, name="get_authors"),
 
     path("authors/<int:pk>/", views.update_author, name="update_author"),
-    # path("authors/<int:pk>/delete/", views.delete_author, name="delete_author"),
+    path("delete/authors/<int:pk>", views.delete_author, name="delete_author"),
 
     path("greet/<name>/", views.greet),
 

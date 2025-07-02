@@ -61,3 +61,8 @@ class BookInstance(models.Model):
     return_date = models.DateTimeField(blank=False, null=False)
     comments = models.TextField(blank=True, null=True)
     user= models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+
+
+class BookImage(models.Model):
+    image = models.ImageField(upload_to='book/images', blank=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)

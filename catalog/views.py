@@ -2,12 +2,20 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView
 from rest_framework import status, request
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Book, Author
 from .serializers import BookSerializer, AuthorSerializer
 
+
+class AddAuthorView(ListCreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+class GetUpdateDeleteAuthorView(RetrieveUpdateDestroyAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
 
 @api_view()
 def get_books(request):

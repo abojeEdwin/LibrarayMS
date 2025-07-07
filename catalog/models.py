@@ -21,17 +21,16 @@ class Genre(models.Model):
    ("P", "POLITICS"),
    ("F", "FICTION"),
    )
-   name = models.CharField(max_length=1,choices=GENRE_CHOICES,default="C")
+   name = models.CharField(max_length=1,choices=GENRE_CHOICES,default="C",unique=True)
    def __str__(self):
        return self.name
 
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=11, unique=True)
-    dob = models.DateField(blank=False,null=True)
+    dob = models.DateField(blank=False,null=False)
     dod = models.DateField(blank=True,null=True)
 
     def __str__(self):
@@ -59,10 +58,15 @@ class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     status = models.CharField(max_length = 1, choices = LOAN_STATUS, default = "A",unique =True)
     return_date = models.DateTimeField(blank=False, null=False)
-    comments = models.TextField(blank=True, null=True)
-    user= models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    comment = models.TextField(blank=True, null=True)
+    user= models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
 
 
 class BookImage(models.Model):
-    image = models.ImageField(upload_to='book/images', blank=True)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='book-images-details', blank=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='books')
+
+    def __str__(self):
+        return self.image.url
+

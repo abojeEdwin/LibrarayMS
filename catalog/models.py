@@ -56,7 +56,7 @@ class BookInstance(models.Model):
     )
     id =  models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    status = models.CharField(max_length = 1, choices = LOAN_STATUS, default = "A",unique =True)
+    status = models.CharField(max_length = 1, choices = LOAN_STATUS, default = "A")
     return_date = models.DateTimeField(blank=False, null=False)
     comment = models.TextField(blank=True, null=True)
     user= models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -65,8 +65,8 @@ class BookInstance(models.Model):
 
 class BookImage(models.Model):
     image = models.ImageField(upload_to='book-images-details', blank=True)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='books')
+    book = models.ForeignKey('Book', on_delete=models.CASCADE, related_name='images')
 
     def __str__(self):
-        return self.image.url
+        return self.image.name
 

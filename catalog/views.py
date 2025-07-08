@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import status, request, viewsets
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -51,12 +50,10 @@ class GetUpdateDeleteAuthorView(RetrieveUpdateDestroyAPIView):
 #     author.delete()
 #     return Response(status=status.HTTP_204_NO_CONTENT)
 
-class BookListView(ListAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
+# class BookListView(ListAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
 
-def greet(request,name):
-    return render(request,'index.html',{'name':name})
 
 @api_view(['GET'])
 def image_detail(request,pk):
@@ -99,6 +96,6 @@ def borrow_book(request,pk):
     book_instance.user = user
     book_instance.book = book
     book_instance.return_date = data.validated_data['return_date']
-    book_instance.comments = data.validated_data['comment']
+    book_instance.comment = data.validated_data['comment']
     book_instance.save()
     return Response({"message" "book borrowed successfully"}, status=status.HTTP_200_OK)
